@@ -8,8 +8,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = F)
 ```
-# what's make your girlfriend/wife happy in certain age range
-
+# what's make your girlfriend/wife happy  
+## do you feel some time you just don't get it why your wife/ girlfriend want? or why suddenly they tell you you don't love them enough? lets use data science to solve this mystery!
 ### Step 0 - Load all the required libraries
 library(tidyverse)  
 library(tidytext)  
@@ -124,7 +124,7 @@ demo_data_nNA_married <- demo_data_nNA[ which(demo_data_nNA$gender=='f'
 & demo_data_nNA$marital == 'married'), ]
 hist(demo_data_nNA_married$age, breaks = 100)
 summary(demo_data_nNA_married$age)
-# select age between 1 Qu to 3 Qu
+# select age between 1 Qu to 3 Qu to eliminate extreme cases
 demo_data_married <- demo_data_nNA_married[ which(demo_data_nNA_married$age >= 29 & demo_data_nNA_married$age <= 42), ]
 hist(demo_data_married$age)
 ```
@@ -153,7 +153,7 @@ hist(demo_data_par$age)
 ```
   
 # subset the data  
-```{r}
+```{r, echo=TRUE}
 #subset of singles in certain age range
 demo_data_single_wid <- demo_data_single$wid
 hm_data_single <- hm_data[hm_data$wid %in% demo_data_single_wid, ]
@@ -172,10 +172,6 @@ hm_data_par <- hm_data[hm_data$wid %in% demo_data_par_wid, ]
 ```
 
 -------------------------------------------
-```{r}
-# datatable(hm_data_nNA_age)
-```
- 
 ```{r warning=FALSE, echo=TRUE, message=FALSE}
 ### subset of singles  
 #### Create a bag of words using the text data 
@@ -303,16 +299,33 @@ p<-ggplot(data=head(bigram_counts_single,20), aes(x=reorder(bigram, n), y=n)) +
 p
 
 ```
+  
+#### we find out that for the single women in major age range are more focusing on their personal life like their own family and friends,their friends birthday. But when women getting married, we find out that more and more people gain their hapiness from their husband and their childrens, also marriage function. and compare to the children chart we find out that when a family has child, women tends to gain happiness more from children then their husband compare to the husband surprise bigram.
+  
+### lastly using HappyDB_rShiny.rmd to produce the gragh of word cloud  
+# compare married word cloud and single word cloud  
+
+![hm_data_married_cloud](../figs/hm_data_married_cloud.png)
+![hm_data_single_cloud](../figs/hm_data_single_cloud.png)  
+
+  
+## from this cloud we find out more evidence that happiness shift from friend and personal feeling to husband and children
 
 
-### lastly using HappyDB_rShiny.rmd to produce the gragh of word cloud
 
+![hm_data_married_bar](../figs/hm_data_married_bar.png)
+![hm_data_married_bar](../figs/hm_data_single_bar.png)
 
+# compare parent word cloud and nonparent word cloud  
+![hm_data_npar_cloud.png](../figs/hm_data_npar_cloud.png)
+![hm_data_par_cloud.png](../figs/hm_data_par_cloud.png)
 
-
-
-
-
+![hm_data_npar_bar.png](../figs/hm_data_npar_bar.png)
+![hm_data_npar_bar.png](../figs/hm_data_npar_bar.png)
+  
+## in conclusion. for people don't have children or aren't married yet, we should focusing more on our girlfriends personal life like their feelings, their mental world. since in that case, more women are not generate happiness major from the matirial world yet.   
+## For people who already have child or already married. we should focusing more on the real world problem like brought home and we should focusing on invest our assets more on our child and the time that shared by family since women at this segment tend to generate their happiness more from family and matirial world.  
+## but the most important as both chart indicates the number one thing we should do is to spend more time with them.
 
 
 
